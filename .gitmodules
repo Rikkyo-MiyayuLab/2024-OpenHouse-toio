@@ -1,0 +1,6 @@
+[submodule "ai-robot-soccer"]
+	path = ai-robot-soccer
+	url = https://github.com/ghelia/ai-robot-soccer.git
+[submodule "ml-agents"]
+	path = ml-agents
+	url = https://github.com/Unity-Technologies/ml-agents/tree/release_18
