@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - blueAgent
+  - greenAgent
+  - blueWall
+  - greenWall
+  - greenGoal
+  - blueGoal
+  - ball
+  - wall
+  - t4u_Cube
+  - t4u_Mat
+  - t4u_Magnet
   layers:
   - Default
   - TransparentFX

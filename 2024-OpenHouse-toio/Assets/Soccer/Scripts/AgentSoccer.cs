@@ -3,12 +3,20 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 
+
 // エージェント
 public class AgentSoccer : Agent
 {
     // チーム定数
     public const int TEAM_BLUE = 0;
     public const int TEAM_GREEN = 1;
+
+    public enum HeuristicCtrlMode {
+        KEY, //デフォルトのキーボード操作（矢印キー操作）
+        PAD, // ゲームパッド操作
+    }
+
+    public HeuristicCtrlMode ControlMode;
 
     // 情報
     public int playerIndex; // プレイヤーINDEX
@@ -46,7 +54,21 @@ public class AgentSoccer : Agent
     {
         var discreteActionsOut = actionsOut.DiscreteActions;
         discreteActionsOut.Clear();
+        if(ControlMode == HeuristicCtrlMode.KEY)
+        {
+            KeyBoardCtrl(in actionsOut);
+        }
+        else if(ControlMode == HeuristicCtrlMode.PAD)
+        {
+            GamepadCtrl(in actionsOut);
+        }
+    }
 
+
+    private void KeyBoardCtrl(in ActionBuffers actionsOut)
+    {
+        var discreteActionsOut = actionsOut.DiscreteActions;
+        discreteActionsOut.Clear();
         // 前後
         if (Input.GetKey(KeyCode.UpArrow)) discreteActionsOut[0] = 1;
         if (Input.GetKey(KeyCode.DownArrow)) discreteActionsOut[0] = 2;
@@ -54,5 +76,11 @@ public class AgentSoccer : Agent
         // 回転
         if (Input.GetKey(KeyCode.LeftArrow)) discreteActionsOut[0] = 3;
         if (Input.GetKey(KeyCode.RightArrow)) discreteActionsOut[0] = 4;
+    }
+
+
+    private void GamepadCtrl(in ActionBuffers actionsOut)
+    {
+        // TODO: Implement GamepadCtrl
     }
 }
