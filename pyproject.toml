@@ -9,6 +9,7 @@ dependencies = [
     "mlagents==0.27.0",
     "torch==1.7.1+cu110",
     "six>=1.16.0",
+    "importlib-metadata==4.4",
 ]
 readme = "README.md"
 requires-python = ">= 3.7"

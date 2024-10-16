@@ -36,7 +36,8 @@ h5py==3.8.0
     # via mlagents
 idna==3.10
     # via requests
-importlib-metadata==6.7.0
+importlib-metadata==4.4.0
+    # via 2024-openhouse-toio
     # via attrs
     # via markdown
     # via mlagents
