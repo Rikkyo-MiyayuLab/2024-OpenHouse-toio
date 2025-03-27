@@ -77,7 +77,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "file:C:/Users/syu/Products/2024-OpenHouse-toio/ml-agents/com.unity.ml-agents",
+      "version": "file:../../ml-agents/com.unity.ml-agents",
       "depth": 0,
       "source": "local",
       "dependencies": {

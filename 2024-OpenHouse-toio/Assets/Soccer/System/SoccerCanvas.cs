@@ -11,12 +11,27 @@ public class SoccerCanvas : MonoBehaviour
     public GameObject camera;
     public RawImage rawImage;
     public ConnectPanel connectPanel;
-
+    public Button cameraIdChengeButton;
 
     // 初期化
     void Start()
     {
         SetMode(0);
+
+        // カメラID変更ボタンの設定
+        this.cameraIdChengeButton.onClick.AddListener(() =>
+        {
+            SoccerCamera soccerCamera = this.camera.GetComponent<SoccerCamera>();
+            // ボタン押下で、カメラデバイスの個数分を上限として、idを1つずつ増やす
+            if(soccerCamera.cameraId < WebCamTexture.devices.Length - 1)
+            {
+                soccerCamera.cameraId++;
+            }
+            else
+            {
+                soccerCamera.cameraId = 0;
+            }
+        });
     }
 
     // モードの指定

@@ -57,10 +57,10 @@ public class SoccerCamera : MonoBehaviour
     private Scalar RED_RANGE0_MAX = new Scalar(20, 255, 255); // Hの最大値
     private Scalar RED_RANGE1_MIN = new Scalar(245, 100, 50); // Hの最小値
     private Scalar RED_RANGE1_MAX = new Scalar(255, 255, 255); // Hの最大値
-    private const int RED_AREA_MIN = 510; // 面積の最小値 (610)
-    private const int RED_AREA_MAX = 1000; // 面積の最大値 (610)
+    private const int RED_AREA_MIN = 210; // 面積の最小値 (610)
+    private const int RED_AREA_MAX = 2000; // 面積の最大値 (610)
     private const int RED_RADIUS_MIN = 10; // 半径の最小値 (15)
-    private const int RED_RADIUS_MAX = 100; // 半径の最大値 (15)
+    private const int RED_RADIUS_MAX = 400; // 半径の最大値 (15)
 
     // ピクセル座標 → マット座標
     private Point PX_POS = new Point(W / 2 - (42.05f / 3.18f) * US, H / 2 - (29.7f / 3.18f) * US);
@@ -80,6 +80,8 @@ public class SoccerCamera : MonoBehaviour
     public SoccerCanvas canvas;
     public RawImage rawImage;
     public ToioManager toioManager;
+
+    public Button switchCameraButton; // カメラ切り替えボタン
 
 
     //====================
@@ -104,9 +106,30 @@ public class SoccerCamera : MonoBehaviour
         }
 
         // Webカメラの開始
-        WebCamDevice userCameraDevice = WebCamTexture.devices[cameraId];
-        this.webCamTexture = new WebCamTexture(userCameraDevice.name, W, H, FPS);
-        this.webCamTexture.Play();
+        StartCamera(cameraId);
+        // カメラ切り替えボタンのリスナーを設定
+        switchCameraButton.onClick.AddListener(SwitchCamera);
+    }
+
+    private void StartCamera(int id)
+    {
+        if (webCamTexture != null)
+        {
+            webCamTexture.Stop(); // 既存のカメラを停止
+        }
+
+        // 指定したカメラでWebCamTextureを初期化し開始
+        WebCamDevice userCameraDevice = WebCamTexture.devices[id];
+        webCamTexture = new WebCamTexture(userCameraDevice.name, W, H, FPS);
+        webCamTexture.Play();
+    }
+
+    // カメラを切り替える関数
+    private void SwitchCamera()
+    {
+        // 次のカメラIDに切り替える
+        cameraId = (cameraId + 1) % WebCamTexture.devices.Length;
+        StartCamera(cameraId);
     }
 
     // フレーム毎に呼ばれる
